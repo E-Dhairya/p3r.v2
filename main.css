@@ -1,0 +1,244 @@
+﻿/* Persona 3 Reload Base Layout & Global Elements */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-rodin);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* Background video styling */
+#p3r-bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  z-index: -10;
+  transform: scale(1.05);
+  transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+  filter: brightness(0.95) contrast(1.05);
+}
+
+/* Canvas particle layer */
+#water-overlay-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -5;
+}
+
+/* Subtle CRT scanline overlay */
+.scanlines-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  opacity: 0.35;
+}
+
+/* Side huge index number */
+.side-index-container {
+  position: absolute;
+  left: -2rem;
+  top: -15rem;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: left top;
+}
+
+#side-index-number {
+  display: block;
+  transform: rotate(90deg);
+  font-family: var(--font-skip);
+  font-size: 38vh;
+  font-style: italic;
+  letter-spacing: -0.18em;
+  color: rgba(255, 255, 255, 0.08);
+  text-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+  transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+/* Main app container */
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Welcome / Start Overlay */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 60% 40%, rgba(3, 31, 100, 0.95), rgba(1, 15, 45, 0.98));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  gap: 2.5rem;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.welcome-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.welcome-title-card {
+  transform: rotate(-3deg);
+  text-align: center;
+}
+
+.welcome-banner {
+  background: #ffffff;
+  color: #031f64;
+  padding: 1.25rem 2.5rem;
+  font-family: var(--font-skip);
+  font-size: 3.2rem;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+  border-radius: 6px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 229, 255, 0.3);
+  position: relative;
+}
+
+.welcome-banner::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 2px solid #00e5ff;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.welcome-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-family: var(--font-new-rodin);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--color-button-2);
+  text-shadow: var(--text-shadow-under);
+}
+
+.welcome-sub hr {
+  width: 100px;
+  border: 0;
+  border-top: 2px solid var(--color-button-2);
+}
+
+.welcome-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 32rem;
+  max-width: 90vw;
+}
+
+.setting-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(1, 95, 204, 0.4);
+  border: 1px solid rgba(125, 230, 253, 0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  color: var(--color-button-3);
+  font-family: var(--font-skip);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.setting-toggle-btn:hover {
+  background: #ffffff;
+  color: #031f64;
+  border-color: #ffffff;
+  transform: translateX(8px);
+}
+
+.setting-badge {
+  background: #000000;
+  color: #ffffff;
+  padding: 0.25rem 1.2rem;
+  border-radius: 9999px;
+  font-family: var(--font-new-rodin);
+  font-size: 1.05rem;
+  font-weight: normal;
+}
+
+.setting-toggle-btn:hover .setting-badge {
+  background: #015fcc;
+}
+
+.welcome-enter-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: var(--font-skip);
+  font-size: 2.8rem;
+  cursor: pointer;
+  letter-spacing: -0.05em;
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.8), var(--text-shadow-under);
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+  margin-top: 1rem;
+}
+
+.welcome-enter-btn:hover {
+  transform: scale(1.08) translateX(6px);
+  color: var(--color-button-3);
+  text-shadow: 0 0 30px #00e5ff;
+}
+
+.enter-arrow {
+  display: inline-block;
+  font-size: 2.5rem;
+  transition: transform 0.2s ease;
+}
+
+.welcome-enter-btn:hover .enter-arrow {
+  transform: translateX(10px);
+}

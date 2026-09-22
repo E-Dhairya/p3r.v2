@@ -1,0 +1,326 @@
+﻿/* ==========================================================================
+   PERSONA 3 RELOAD (P3R v2) — CINEMATIC TRANSITIONS & SPECIAL FX
+   Hardware-accelerated animations inspired by Atlus UI design
+   ========================================================================== */
+
+/* Fullscreen Overlay Canvas for Procedural Liquid Blot & Particle Shaders */
+#p3r-transition-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 600; /* sits between main menu (10-100) and modal content (700) */
+}
+
+/* Screen Shake Effect for Impact (e.g. Velvet Stamp Slam) */
+@keyframes screen-shake-p3r {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-5px, 4px); }
+  40% { transform: translate(5px, -4px); }
+  60% { transform: translate(-4px, -2px); }
+  80% { transform: translate(3px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.screen-shake-active {
+  animation: screen-shake-p3r 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ==========================================================================
+   1. SKILLS: ELEMENTAL GLYPH DETONATION & AZURE SLASH
+   ========================================================================== */
+.skills-burst-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.elemental-glyph {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-skip);
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #fff;
+  opacity: 0;
+  box-shadow: 0 0 25px currentColor;
+  transform: translate(-50%, -50%) scale(0.2);
+}
+
+@keyframes glyph-explode {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.35) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx) * 1.35), calc(-50% + var(--ty) * 1.35)) scale(0.8) rotate(360deg);
+  }
+}
+
+.glyph-active {
+  animation: glyph-explode 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Skills card staggered pop-in */
+.skill-card-animate {
+  opacity: 0;
+  transform: translateY(35px) rotateX(15deg);
+  animation: skill-card-entrance 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+
+@keyframes skill-card-entrance {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* ==========================================================================
+   2. PROFILE: BIOMETRIC SCANLINE & RADAR UNFURL
+   ========================================================================== */
+.biometric-laser-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #00e5ff, transparent);
+  box-shadow: 0 0 20px #00e5ff, 0 0 40px #7de6fd;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+}
+
+@keyframes laser-sweep-down {
+  0% {
+    top: 0%;
+    opacity: 1;
+  }
+  85% {
+    top: 100%;
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.laser-active {
+  animation: laser-sweep-down 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Live Animated Radar Path */
+.radar-polygon-anim {
+  transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Social stat star pop-in */
+@keyframes star-pop {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.4); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.star-animated {
+  display: inline-block;
+  animation: star-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+
+/* ==========================================================================
+   3. PROJECTS: DIAGONAL BLADE SLASH & POLYGON CONFETTI
+   ========================================================================== */
+.blade-slash-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 650;
+  overflow: hidden;
+}
+
+.blade-gleam-line {
+  position: absolute;
+  top: 50%;
+  left: -50%;
+  width: 200%;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #00e5ff, #ffffff, #7de6fd, transparent);
+  box-shadow: 0 0 35px #00e5ff, 0 0 70px #ffffff;
+  transform: rotate(-28deg);
+  opacity: 0;
+}
+
+@keyframes blade-slash-anim {
+  0% {
+    transform: rotate(-28deg) translateY(-250px) scaleY(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: rotate(-28deg) translateY(0px) scaleY(2.8);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(-28deg) translateY(120px) scaleY(1.5);
+  }
+  100% {
+    transform: rotate(-28deg) translateY(350px) scaleY(0.2);
+    opacity: 0;
+  }
+}
+
+.blade-slash-active {
+  animation: blade-slash-anim 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Projects card entrance with mechanical slide */
+.project-card-animate {
+  opacity: 0;
+  transform: translateX(-40px) skewX(-4deg);
+  animation: project-card-entrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes project-card-entrance {
+  to {
+    opacity: 1;
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
+/* ==========================================================================
+   4. ACHIEVEMENTS: VELVET BUTTERFLY & RED STAMP IMPACT
+   ========================================================================== */
+.velvet-butterfly-stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 680;
+  overflow: hidden;
+}
+
+.velvet-butterfly {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  opacity: 0;
+  filter: drop-shadow(0 0 16px #00e5ff) drop-shadow(0 0 32px #16cffb);
+}
+
+.butterfly-wing {
+  transform-origin: center;
+  animation: butterfly-flap 0.16s infinite alternate ease-in-out;
+}
+
+@keyframes butterfly-flap {
+  0% { transform: scaleX(1) scaleY(1); }
+  100% { transform: scaleX(0.2) scaleY(0.9); }
+}
+
+@keyframes butterfly-flight-path {
+  0% {
+    opacity: 0;
+    transform: translate(-10vw, 85vh) rotate(-15deg) scale(0.6);
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(48vw, 42vh) rotate(22deg) scale(1.15);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(110vw, 8vh) rotate(-25deg) scale(0.8);
+  }
+}
+
+.butterfly-active {
+  animation: butterfly-flight-path 1.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Elizabeth's Wax Stamp Slam */
+.stamp-slam-effect {
+  opacity: 0;
+  transform: scale(2.4) rotate(-20deg);
+  animation: stamp-impact 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes stamp-impact {
+  0% {
+    opacity: 0;
+    transform: scale(2.8) rotate(-25deg);
+    filter: blur(5px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(0.92) rotate(-10deg);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-12deg);
+  }
+}
+
+/* ==========================================================================
+   5. EXPERIENCE: 3D CASCADING TAROT FAN-OUT IN DEEP WATER
+   ========================================================================== */
+.tarot-fan-stage {
+  position: relative;
+  width: 100%;
+  perspective: 1200px;
+}
+
+.tarot-card-3d {
+  transform-style: preserve-3d;
+  opacity: 0;
+  transform: translateY(60px) rotateY(-35deg) translateZ(-80px);
+  animation: tarot-deal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes tarot-deal {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateY(0deg) translateZ(0);
+  }
+}
+
+/* ==========================================================================
+   6. SYSTEM: CRT SCANLINE PULSE & AUDIO FREQUENCY VISUALIZER
+   ========================================================================== */
+.system-visualizer-bar {
+  display: inline-block;
+  width: 5px;
+  background: var(--color-button-1);
+  box-shadow: 0 0 10px #00e5ff;
+  margin: 0 2px;
+  border-radius: 2px;
+  transition: height 0.08s ease;
+}
+
+@keyframes scanline-telemetry {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.telemetry-grid {
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

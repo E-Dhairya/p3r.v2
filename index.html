@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PERSONA 3 RELOAD // CAMP ARCHIVE</title>
+  <link rel="icon" type="image/svg+xml" href="assets/selection-cursor.svg">
+
+  <!-- Persona 3 Reload Style Architecture -->
+  <link rel="stylesheet" href="styles/variables.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/hud.css">
+  <link rel="stylesheet" href="styles/menu.css">
+  <link rel="stylesheet" href="styles/modals.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/transitions.css">
+</head>
+<body>
+  <!-- Authentic P3R Submerged Background Video -->
+  <video id="p3r-bg-video" loop muted playsinline src="assets/background.mp4"></video>
+
+  <!-- Interactive Aquatic Canvas Particle & Caustic Layer -->
+  <canvas id="water-overlay-canvas"></canvas>
+
+  <!-- CRT Scanline & Grain Aesthetic -->
+  <div class="scanlines-overlay"></div>
+
+  <!-- Giant Background Rotated Index Number -->
+  <div class="side-index-container">
+    <span id="side-index-number">01</span>
+  </div>
+
+  <div id="app">
+    <!-- TOP HUD -->
+    <header class="hud-top">
+      <div class="hud-left-group">
+        <!-- Real-Time Moon Phase Tracker -->
+        <div class="moon-phase-widget" title="Current Lunar Phase">
+          <div class="moon-phase-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#ffffff"/>
+            </svg>
+          </div>
+          <div class="moon-phase-info">
+            <span class="moon-label">LUNAR PHASE</span>
+            <span class="moon-value" id="hud-moon-value">CALCULATING...</span>
+          </div>
+        </div>
+
+        <!-- Real-Time Game Calendar -->
+        <div class="date-time-widget">
+          <div class="date-row">
+            <span id="hud-date-month">SEP 11</span>
+            <span class="day-badge" id="hud-date-day">FRI</span>
+          </div>
+          <span class="time-slot" id="hud-time-slot">AFTER SCHOOL</span>
+        </div>
+      </div>
+
+      <div class="hud-right-group">
+        <!-- Player Level & Status Gauges -->
+        <div class="player-status-card">
+          <div class="status-header">
+            <span class="player-name">DHAIRYA</span>
+            <span class="player-level">Lv. 99</span>
+          </div>
+          <!-- HP Gauge -->
+          <div class="gauge-row">
+            <span class="gauge-label" style="color: #00e5ff;">HP</span>
+            <div class="gauge-bar-container">
+              <div class="gauge-fill-hp"></div>
+            </div>
+            <span class="gauge-value">999 / 999</span>
+          </div>
+          <!-- SP Gauge -->
+          <div class="gauge-row">
+            <span class="gauge-label" style="color: #fd77d9;">SP</span>
+            <div class="gauge-bar-container">
+              <div class="gauge-fill-sp"></div>
+            </div>
+            <span class="gauge-value">999 / 999</span>
+          </div>
+        </div>
+
+        <!-- Audio Quick Controls -->
+        <div class="hud-audio-controls">
+          <button class="hud-icon-btn" id="hud-toggle-music" title="Toggle Music (Color Your Night)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </button>
+          <button class="hud-icon-btn" id="hud-toggle-sfx" title="Toggle SFX">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN MENU: SLANTED KINETIC OPTIONS -->
+    <main class="menu-wrapper">
+      <div class="options-container" id="options-container">
+        <!-- Rendered dynamically by menu-controller.js -->
+      </div>
+    </main>
+
+    <!-- BOTTOM HUD -->
+    <footer class="hud-bottom">
+      <div class="option-description" id="option-description">
+        Inspect Technical Stack & Elemental Affinities
+      </div>
+
+      <div class="command-line-wrapper">
+        <span class="command-label">Command</span>
+        <hr class="command-divider">
+      </div>
+
+      <div class="controller-prompts">
+        <div class="prompt-badge">
+          <span class="key-pill">ENTER</span>
+          <span class="key-action">SELECT</span>
+        </div>
+        <div class="prompt-badge">
+          <span class="key-pill">W / S</span>
+          <span class="key-action">NAVIGATE</span>
+        </div>
+        <div class="prompt-badge">
+          <span class="key-pill">ESC</span>
+          <span class="key-action">BACK</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- P3R Fullscreen Procedural Transition & Confetti Canvas -->
+  <canvas id="p3r-transition-canvas"></canvas>
+
+  <!-- INTERACTIVE SUB-SCREEN MODALS -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal-container">
+      <header class="modal-header">
+        <div class="modal-title-group">
+          <h2 class="modal-title" id="modal-active-title">SKILLS</h2>
+          <span class="modal-subtitle" id="modal-active-subtitle">スキル // ARCHIVE</span>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn">
+          <span class="key-pill">ESC</span>
+          <span class="key-action">CLOSE</span>
+        </button>
+      </header>
+      <div class="modal-body" id="modal-dynamic-body">
+        <!-- Dynamic content injected by menu-controller.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- WELCOME / START EXPERIENCE OVERLAY -->
+  <div class="welcome-overlay" id="welcome-overlay">
+    <div class="welcome-title-card">
+      <h1 class="welcome-banner">
+        PERSONA 3 RELOAD<br>
+        PORTFOLIO ARCHIVE
+      </h1>
+      <div class="welcome-sub">
+        <span>S.E.E.S. ARCHIVAL SYSTEM</span>
+        <hr>
+        <span>DEVELOPER EDITION</span>
+      </div>
+    </div>
+
+    <div class="welcome-settings">
+      <button class="setting-toggle-btn" id="toggle-init-music">
+        <span>BACKGROUND MUSIC // BGM</span>
+        <span class="setting-badge" id="init-music-badge">ON</span>
+      </button>
+      <button class="setting-toggle-btn" id="toggle-init-sfx">
+        <span>NAVIGATION SOUNDS // SFX</span>
+        <span class="setting-badge" id="init-sfx-badge">ON</span>
+      </button>
+    </div>
+
+    <button class="welcome-enter-btn" id="welcome-enter-btn">
+      <span>ENTER TERMINAL</span>
+      <span class="enter-arrow">➔</span>
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

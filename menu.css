@@ -1,0 +1,152 @@
+﻿/* Persona 3 Reload Kinetic Slanted Menu Styling */
+
+.menu-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 55vw;
+  min-width: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  margin-top: -3rem;
+  /* Overlap the 200px tall SVGs tightly like in P3R */
+  gap: -110px;
+  margin-left: 2rem;
+}
+
+.option-item {
+  position: relative;
+  pointer-events: none;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.option-hitbox {
+  position: absolute;
+  left: 120px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 480px;
+  height: 85px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.option-svg {
+  width: 950px;
+  height: 200px;
+  transform-origin: 25% center;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+/* Base text in SVG */
+.option-text-base {
+  font-family: var(--font-skip);
+  font-size: 76px;
+  font-style: italic;
+  letter-spacing: -0.12em;
+  transition: transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1);
+  transform-origin: 25% center;
+}
+
+/* Japanese subtitle text */
+.option-sub-text {
+  font-family: var(--font-new-rodin);
+  font-size: 22px;
+  font-style: normal;
+  letter-spacing: 0.15em;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform-origin: left center;
+}
+
+/* Unselected colors cycling through the cyan palette */
+.color-btn-0 { fill: var(--color-button-1); }
+.color-btn-1 { fill: var(--color-button-2); }
+.color-btn-2 { fill: var(--color-button-3); }
+
+/* Selected state styling */
+.option-item.selected {
+  z-index: 15 !important;
+}
+
+.option-item.selected .option-svg {
+  filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.6));
+}
+
+.option-item.selected .option-text-base {
+  fill: #000000;
+  transform: scale(1.06);
+}
+
+.option-item.selected .option-sub-text {
+  opacity: 1;
+  transform: translateX(10px);
+}
+
+.option-text-red {
+  font-family: var(--font-skip);
+  font-size: 76px;
+  font-style: italic;
+  letter-spacing: -0.12em;
+  fill: var(--color-red);
+  transform-origin: 25% center;
+}
+
+/* Pulsing background ribbon animation */
+@keyframes p3r-heartbeat {
+  0% { transform: scale(1); }
+  60% { transform: scale(1); }
+  75% { transform: scale(1.06); }
+  90% { transform: scale(1); }
+  95% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.pulsing-bg {
+  animation: p3r-heartbeat 1.2s ease-in-out infinite;
+  transform-origin: 52px 100px;
+}
+
+/* Responsive scaling for laptops / smaller monitors */
+@media (max-width: 1400px) {
+  .menu-wrapper {
+    width: 65vw;
+  }
+  .options-container {
+    transform: scale(0.85);
+    transform-origin: right center;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .menu-wrapper {
+    width: 80vw;
+  }
+  .options-container {
+    transform: scale(0.72);
+  }
+  .hud-top {
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+}

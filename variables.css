@@ -1,0 +1,77 @@
+﻿/* Persona 3 Reload Design Tokens & Typography */
+
+@font-face {
+  font-family: "Rodin Pro";
+  src: url("../assets/fonts/Rodin Pro EB.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rodin Pro Medium";
+  src: url("../assets/fonts/Rodin Pro DB.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rodin Pro Bold";
+  src: url("../assets/fonts/Rodin Pro UB.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NewRodin Pro";
+  src: url("../assets/fonts/NewRodin Pro DB.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Skip Std B";
+  src: url("../assets/fonts/Skip Std B.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --color-fg: #ffffff;
+  --color-bg: #015fcc;
+  --color-bg-dark: #031f64;
+  --color-bg-deep: #020b24;
+  --color-red: #ff0000;
+  --color-pink: #fd77d9;
+  --color-muted: #808080;
+  --color-border: #5d6a88;
+
+  --color-button-1: #16cffb;
+  --color-button-2: #7de6fd;
+  --color-button-3: #77fefc;
+
+  --color-cyan-glow: rgba(0, 229, 255, 0.4);
+  --color-yellow: #ffd166;
+
+  --font-rodin: "Rodin Pro", "Arial Black", sans-serif;
+  --font-rodin-bold: "Rodin Pro Bold", "Arial Black", sans-serif;
+  --font-new-rodin: "NewRodin Pro", "Segoe UI", sans-serif;
+  --font-skip: "Skip Std B", "Arial Black", sans-serif;
+
+  --text-shadow-under: 0 1px 6px rgba(0, 0, 0, 0.6), 0 -1px 6px rgba(0, 0, 0, 0.6), 1px 0 6px rgba(0, 0, 0, 0.6), -1px 0 6px rgba(0, 0, 0, 0.6);
+  --shadow-under: 0 1px 6px rgba(0, 0, 0, 0.6), 0 -1px 6px rgba(0, 0, 0, 0.6), 1px 0 6px rgba(0, 0, 0, 0.6), -1px 0 6px rgba(0, 0, 0, 0.6);
+  --shadow-red: 3px -6px 0 var(--color-red);
+  --text-shadow-border:
+    0 2px 0 var(--color-border),
+    0 -2px 0 var(--color-border),
+    2px 0 0 var(--color-border),
+    -2px 0 0 var(--color-border),
+    -2px -2px 0 var(--color-border),
+    2px -2px 0 var(--color-border),
+    2px 2px 0 var(--color-border),
+    -2px 2px 0 var(--color-border),
+    0 2px 8px rgba(0, 0, 0, 0.7);
+
+  --skew-angle: -14deg;
+  --transition-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-fast: cubic-bezier(0.16, 1, 0.3, 1);
+}
